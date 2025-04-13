@@ -1,48 +1,34 @@
-import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
-import { router } from 'expo-router';
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 export default function ActionButton({ color, icon, label, path }) {
-    return (
-        <TouchableOpacity
-            style={styles.action}
-            onPress={() => {
-                if (path) {
-                    router.navigate(path);
-                }
-            }}>
-                <View
-                    style={[
-                        styles.actionButton,
-                        { backgroundColor: color ? color : "#7b48f4"},
-                    ]}>
-                </View>
-                        <MaterialIcons
-                            name={icon ? icon : "attach-money"}
-                            size={32}
-                            color="white"
-                        />
-                        <Text style={styles.text.actionText}>{label ? label : 'label'}</Text>
-            </TouchableOpacity>
-    );
-}
-const styles = StyleSheet.create({ 
-    action: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 8,
-    },
+  const router = useRouter();
 
-    actionButton: {
-        width: 68,
-        height: 68,
-        borderRadius: 68,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    text: {
-        actionText: {
-            color: 'white',
-        },
-    },
+  return (
+    <TouchableOpacity
+      style={[styles.container, { backgroundColor: color }]}
+      onPress={() => router.push(path)}
+    >
+      <MaterialIcons name={icon} size={24} color="#fff" />
+      <Text style={styles.label}>{label}</Text>
+    </TouchableOpacity>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    padding: 15,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  label: {
+    color: "#fff",
+    fontSize: 12,
+    marginTop: 5,
+    textAlign: "center",
+  },
 });
